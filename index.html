@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enfants Influenceurs - Cartographie de la Controverse</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Icônes Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Mermaid JS -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        
+        /* Masquer la scrollbar */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translate3d(0, 40px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .delay-100 { animation-delay: 0.1s; }
+        
+        /* Style actif pour la navigation */
+        .nav-active {
+            background-color: #E0E7FF; /* indigo-100 */
+            color: #4338CA; /* indigo-700 */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 bg-white border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center h-16 justify-center">
+                <div class="flex-1 overflow-x-auto no-scrollbar">
+                    <div class="flex items-center justify-center space-x-1 min-w-max px-4" id="nav-container">
+                        <button onclick="scrollToSection('home')" id="btn-home" class="nav-btn px-3 py-1.5 text-sm font-medium rounded-full transition-colors text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Accueil</button>
+                        <button onclick="scrollToSection('edito')" id="btn-edito" class="nav-btn px-3 py-1.5 text-sm font-medium rounded-full transition-colors text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Édito & Problématique</button>
+                        <button onclick="scrollToSection('presse')" id="btn-presse" class="nav-btn px-3 py-1.5 text-sm font-medium rounded-full transition-colors text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Revue de Presse</button>
+                        <button onclick="scrollToSection('science')" id="btn-science" class="nav-btn px-3 py-1.5 text-sm font-medium rounded-full transition-colors text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Littérature</button>
+                        <button onclick="scrollToSection('acteurs')" id="btn-acteurs" class="nav-btn px-3 py-1.5 text-sm font-medium rounded-full transition-colors text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Acteurs</button>
+                        <button onclick="scrollToSection('chrono')" id="btn-chrono" class="nav-btn px-3 py-1.5 text-sm font-medium rounded-full transition-colors text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Chronologie</button>
+                        <button onclick="scrollToSection('etranger')" id="btn-etranger" class="nav-btn px-3 py-1.5 text-sm font-medium rounded-full transition-colors text-gray-600 hover:text-indigo-600 hover:bg-gray-50">International</button>
+                        <button onclick="scrollToSection('enquete')" id="btn-enquete" class="nav-btn px-3 py-1.5 text-sm font-medium rounded-full transition-colors text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Enquête</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white overflow-hidden">
+        <div class="absolute top-20 bottom-2 left-2 right-2 md:top-24 md:bottom-4 md:left-2 md:right-2 pointer-events-none select-none z-0">
+            <div class="absolute inset-0 border border-white/20 rounded-[2.5rem]"></div>
+            <div class="absolute inset-3 md:inset-4 border border-white/40 rounded-[2rem]"></div>
+        </div>
+
+        <div class="container mx-auto px-4 z-10 text-center relative pt-20">
+            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight animate-fade-in-up delay-100">
+                Enfants Influenceurs : <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-indigo-300">
+                    Travail ou Jeu ?
+                </span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto font-light animate-fade-in-up delay-100">
+                Une cartographie pour se situer sur la frontière invisible entre le loisir innocent et le travail dissimulé.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+        <!-- Edito -->
+        <section id="edito" class="scroll-mt-24 transition-opacity duration-700">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100">
+                <div class="flex items-center gap-3 mb-6 text-indigo-600">
+                    <i data-lucide="file-text" width="32" height="32"></i>
+                    <h2 class="text-3xl font-serif font-bold">Édito & Problématique</h2>
+                </div>
+                <div class="prose prose-lg text-gray-600 max-w-none">
+                    <div class="mt-8">
+                        <div class="flex items-center gap-4 cursor-pointer group mb-6 w-fit select-none" onclick="toggleProblem()">
+                            <h3 class="text-2xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Le Problème</h3>
+                            <div class="bg-indigo-50 rounded-full p-2 group-hover:bg-indigo-100 transition-colors shadow-sm">
+                                <i id="problem-icon" data-lucide="chevron-down" class="text-indigo-600 transition-transform duration-300 w-6 h-6"></i>
+                            </div>
+                            <span class="text-sm text-gray-400 group-hover:text-indigo-500 transition-colors hidden sm:inline-block">Lire l'analyse complète</span>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-8 items-start mb-8">
+                            <div>
+                                <p class="text-gray-700 text-lg leading-relaxed">
+                                    L'avènement des plateformes comme YouTube, TikTok et Instagram a créé une zone grise juridique et morale. Des millions d'enfants sont filmés quotidiennement par leurs parents, générant parfois des revenus colossaux. S'agit-il d'une activité de loisir familial ou d'un travail dissimulé nécessitant une protection stricte ?
+                                </p>
+                            </div>
+                            <div class="bg-indigo-50 p-6 rounded-xl border-l-4 border-indigo-500 shadow-sm h-full flex flex-col justify-center">
+                                <h3 class="text-xl font-bold text-indigo-900 mb-2">Notre questionnement</h3>
+                                <p class="italic text-indigo-800 text-lg leading-relaxed">
+                                    "Jusqu’où peut-on aller dans la mise en scène de l’enfance, sans porter atteinte aux droits fondamentaux de l’enfant ?"
+                                </p>
+                            </div>
+                        </div>
+
+                        <div id="problem-full-content" class="hidden text-slate-700 text-base leading-relaxed space-y-5 border-t border-indigo-100 pt-8 animate-fade-in-up bg-slate-50 p-6 md:p-8 rounded-2xl shadow-inner">
+                            <p>
+                                La montée en puissance des réseaux sociaux a vu émerger un nouveau phénomène : celui des enfants influenceurs. Mis en avant par leurs parents sur des plateformes comme Instagram, TikTok ou YouTube, ces enfants apparaissent dans des vidéos de divertissement, de publicité ou de mise en scène du quotidien, attirant parfois des millions de vues. Derrière ces contenus se cache un véritable modèle économique : les parents peuvent percevoir des revenus grâce aux partenariats avec des marques, aux placements de produits et à la monétisation des vidéos. Cette situation soulève de nombreuses interrogations éthiques, juridiques et psychologiques.
+                            </p>
+                            <p>
+                                L’une des principales critiques concerne l’exploitation des enfants. Contrairement aux acteurs ou mannequins traditionnels, les enfants influenceurs ne bénéficient pas toujours d’un cadre légal clair pour protéger leurs droits, notamment en matière de temps de travail, de rémunération ou de respect de la vie privée. Certains redoutent que ces enfants soient utilisés comme des outils financiers par leurs propres parents, sans véritable consentement éclairé. En effet, un enfant n’est pas en mesure de comprendre pleinement les conséquences de son exposition publique à long terme.
+                            </p>
+                            <p>
+                                Par ailleurs, l’impact psychologique inquiète de nombreux spécialistes. Grandir sous le regard permanent de milliers d’internautes peut provoquer une pression importante, un effacement de la vie privée et une construction de l’identité biaisée. De plus, ces contenus influencent un public souvent très jeune, qui peut développer des attentes irréalistes sur la réussite, l’argent ou le bonheur.
+                            </p>
+                            <p class="font-medium text-indigo-900 bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                                Face à ces dérives potentielles, certains pays ont commencé à légiférer afin de mieux encadrer cette activité, en imposant notamment l’obligation de placer une partie des revenus des enfants sur un compte bloqué. Toutefois, le débat reste ouvert : jusqu’où peut-on aller dans la mise en scène de l’enfance, sans porter atteinte aux droits fondamentaux de l’enfant ?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Presse -->
+        <section id="presse" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-8">
+                <i data-lucide="external-link" class="text-indigo-600" width="28"></i>
+                <h2 class="text-3xl font-serif font-bold text-slate-900">Revue de Presse</h2>
+            </div>
+
+            <div class="mb-12 text-lg text-gray-700 leading-relaxed max-w-5xl">
+                <p>
+                    À l'ère du "tout numérique", une nouvelle figure publique a émergé : l'enfant influenceur. Stars de YouTube, mascottes d'Instagram ou danseurs de TikTok, des mineurs, parfois dès le berceau, cumulent des millions de vues. Si pour certains parents, il s'agit d'une activité ludique ou artistique, la réalité cache un modèle économique puissant où l'enfant devient le support de partenariats commerciaux lucratifs. Cette visibilité soulève une controverse majeure : où s'arrête le partage familial et où commence le travail dissimulé ? Alors que la France a tenté de réguler ce "Far West" numérique avec la loi de 2020, la tension persiste entre la liberté parentale d'éduquer (et d'exposer) ses enfants et la nécessité impérieuse de protéger l'intégrité psychologique et financière de mineurs incapables de consentir de manière éclairée. L'enfant est-il un sujet de droit ou un objet marketing ? C'est tout l'enjeu de ce débat qui mêle éthique, droit et psychologie.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 items-start">
+                <!-- Article 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-center text-xs font-semibold text-indigo-500 mb-2 uppercase tracking-wide">
+                            <span>solidarites.gouv.fr</span>
+                            <span>2020</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-slate-800 leading-tight">Protéger les enfants influenceurs : décryptage de la loi Studer</h3>
+                        
+                        <div id="article-1-content" class="hidden text-sm text-gray-600 mt-4 border-t border-gray-100 pt-4 animate-fade-in-up">
+                            <p class="mb-4">Ce document institutionnel analyse le tournant législatif majeur opéré par la France avec la loi du 19 octobre 2020, visant à encadrer l'exploitation commerciale de l'image des mineurs de moins de 16 ans sur les plateformes vidéo. Il répond à la question du "Comment" l'État intervient : en assimilant l'activité des enfants influenceurs à celle des enfants mannequins ou du spectacle.</p>
+                            <ul class="space-y-3 mb-4 list-disc pl-4">
+                                <li><strong>Reconnaissance du travail :</strong> L'activité d'influenceur, lorsqu'elle est régulière et rémunérée, est désormais soumise au droit du travail (agrément administratif nécessaire, temps de travail limité).</li>
+                                <li><strong>Protection financière :</strong> Les revenus générés par l'enfant doivent être placés à la Caisse des Dépôts et Consignations jusqu'à sa majorité, empêchant les parents de tout dépenser.</li>
+                                <li><strong>Droit à l'oubli :</strong> La loi instaure un droit à l'effacement numérique facilité pour les mineurs, même sans l'accord des parents.</li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-auto pt-4">
+                            <p class="italic text-gray-500 border-l-2 border-indigo-200 pl-3 text-sm mb-4">"Les revenus de l'enfant sont bloqués jusqu'à sa majorité."</p>
+                            <button onclick="toggleArticle('article-1')" class="text-indigo-600 font-medium text-sm hover:underline flex items-center gap-1 group">
+                                <span id="article-1-btn-text">Lire l'analyse</span>
+                                <i id="article-1-icon" data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-center text-xs font-semibold text-indigo-500 mb-2 uppercase tracking-wide">
+                            <span>Association OPEN</span>
+                            <span>2021</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-slate-800 leading-tight">Loi Enfants Influenceurs : le guide complet pour les parents</h3>
+
+                         <div id="article-2-content" class="hidden text-sm text-gray-600 mt-4 border-t border-gray-100 pt-4 animate-fade-in-up">
+                            <p class="mb-4">Ce guide pratique s'adresse directement aux parents pour traduire les obligations juridiques complexes en actions concrètes au quotidien. Il explore le "Pourquoi" la vigilance est nécessaire au-delà de la simple peur du gendarme.</p>
+                            <ul class="space-y-3 mb-4 list-disc pl-4">
+                                <li><strong>Distinction Loisir/Travail :</strong> Il aide à tracer la ligne floue entre filmer son enfant pour le plaisir et gérer une entreprise. Le critère de la répétition et du revenu est central.</li>
+                                <li><strong>Responsabilité parentale :</strong> Le document insiste sur le rôle des parents comme gardiens de l'image. Ils ne sont pas propriétaires de l'image de leur enfant, mais dépositaires.</li>
+                                <li><strong>Gestion des risques :</strong> Il aborde concrètement comment déclarer l'activité et protéger l'enfant du cyberharcèlement lié à sa notoriété.</li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-auto pt-4">
+                            <p class="italic text-gray-500 border-l-2 border-indigo-200 pl-3 text-sm mb-4">"L'enfant n'est pas en mesure de comprendre pleinement les conséquences de son exposition."</p>
+                            <button onclick="toggleArticle('article-2')" class="text-indigo-600 font-medium text-sm hover:underline flex items-center gap-1 group">
+                                <span id="article-2-btn-text">Lire l'analyse</span>
+                                <i id="article-2-icon" data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-center text-xs font-semibold text-indigo-500 mb-2 uppercase tracking-wide">
+                            <span>Enfant Mag</span>
+                            <span></span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-slate-800 leading-tight">Enfants sous influence surexposés au nom du like</h3>
+
+                        <div id="article-3-content" class="hidden text-sm text-gray-600 mt-4 border-t border-gray-100 pt-4 animate-fade-in-up">
+                            <p class="mb-4">Ce document délaisse l'aspect législatif pour se concentrer sur le coût humain et psychologique du phénomène appelé "sharenting" (partage parental abusif). Il répond à la question des "Conséquences" invisibles sur le développement de l'enfant.</p>
+                            <ul class="space-y-3 mb-4 list-disc pl-4">
+                                <li><strong>Construction identitaire biaisée :</strong> L'enfant risque de développer une identité artificielle, adaptée aux attentes de son public, au détriment de sa véritable personnalité et de son estime de soi intrinsèque.</li>
+                                <li><strong>Anxiété de performance :</strong> La pression constante de devoir "être performant" devant la caméra génère un stress émotionnel et une dépendance à la validation numérique anormale pour un mineur.</li>
+                                <li><strong>Perte de contrôle et sécurité :</strong> Au-delà de la psychologie, la surexposition expose l'enfant à des risques concrets comme le vol de données, le détournement d'images et la pédocriminalité.</li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-auto pt-4">
+                            <p class="italic text-gray-500 border-l-2 border-indigo-200 pl-3 text-sm mb-4">"L'enfant apprend à jouer un personnage pour plaire à son audience, créant une confusion entre son vrai moi et son image publique."</p>
+                            <button onclick="toggleArticle('article-3')" class="text-indigo-600 font-medium text-sm hover:underline flex items-center gap-1 group">
+                                <span id="article-3-btn-text">Lire l'analyse</span>
+                                <i id="article-3-icon" data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Science (Updated with Article 1, 2, 3 details) -->
+        <section id="science" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-8">
+                <i data-lucide="book-open" class="text-indigo-600" width="28"></i>
+                <h2 class="text-3xl font-serif font-bold text-slate-900">Littérature Scientifique</h2>
+            </div>
+            <div class="space-y-6">
+                <!-- Article 1: Le Monde -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-indigo-500 hover:shadow-md transition-shadow">
+                    <div class="flex flex-col md:flex-row md:items-baseline md:justify-between mb-4">
+                        <h3 class="text-xl font-bold text-slate-800 leading-tight">Enfants influenceurs : le Parlement adopte définitivement la loi encadrant l’activité</h3>
+                        <span class="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full mt-2 md:mt-0 whitespace-nowrap">Le Monde</span>
+                    </div>
+                    <div class="space-y-3 text-gray-600 text-sm md:text-base leading-relaxed">
+                        <p><strong class="text-slate-900">Problématique :</strong> L'article souligne que jusqu'en 2020, les enfants filmés par leurs parents sur YouTube ou TikTok évoluaient dans un "vide juridique". Leur activité était considérée comme un loisir, permettant aux parents de toucher 100% des revenus sans contrôle.</p>
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                            <strong class="text-slate-900 block mb-2">Apport majeur (La solution) :</strong>
+                            <p class="mb-3">L'article détaille le mécanisme de la loi "Studer" du 19 octobre 2020. Elle étend aux "enfants du web" les protections des enfants mannequins ou acteurs.</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Protection financière :</strong> Obligation de verser une part des revenus à la Caisse des Dépôts (bloquée jusqu'à la majorité).</li>
+                                <li><strong>Protection numérique :</strong> Instauration du "droit à l'oubli" permettant aux mineurs de demander le retrait des contenus sans l'accord des parents.</li>
+                            </ul>
+                        </div>
+                        <p><strong class="text-slate-900">Conclusion de l'auteur :</strong> Le texte conclut que si la loi est une avancée majeure, son application reste complexe face à la multitude de "petits" comptes qui ne franchissent pas les seuils de professionnalisation mais exposent quand même l'enfant.</p>
+                    </div>
+                </div>
+
+                <!-- Article 2: Numerama -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-indigo-500 hover:shadow-md transition-shadow">
+                    <div class="flex flex-col md:flex-row md:items-baseline md:justify-between mb-4">
+                        <h3 class="text-xl font-bold text-slate-800 leading-tight">La loi sur les enfants influenceurs est adoptée : que va-t-elle changer ?</h3>
+                        <span class="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full mt-2 md:mt-0 whitespace-nowrap">Numerama</span>
+                    </div>
+                    <div class="space-y-3 text-gray-600 text-sm md:text-base leading-relaxed">
+                        <p><strong class="text-slate-900">Problématique :</strong> L'article critique la banalisation de l'exposition de l'intimité. Il ne s'agit pas seulement de travail, mais de droit à l'image. L'auteur pointe le paradoxe des parents qui construisent l'identité numérique de l'enfant avant même qu'il ne sache parler.</p>
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                            <strong class="text-slate-900 block mb-2">Points clés soulevés :</strong>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Le consentement :</strong> L'article insiste sur l'impossibilité pour un enfant de 5 ou 8 ans de donner un consentement "éclairé" sur la diffusion de son image à des millions de personnes.</li>
+                                <li><strong>Le rôle des plateformes :</strong> Numerama souligne la responsabilité de YouTube et Instagram qui, par leurs algorithmes, ont encouragé ce type de contenu familial très performant avant d'être contraints par la loi de mieux le réguler.</li>
+                            </ul>
+                        </div>
+                        <p><strong class="text-slate-900">Conclusion de l'auteur :</strong> L'article suggère que la loi est nécessaire mais insuffisante pour changer les mentalités parentales sur le partage excessif (over-sharing).</p>
+                    </div>
+                </div>
+
+                <!-- Article 3: Libération -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-indigo-500 hover:shadow-md transition-shadow">
+                    <div class="flex flex-col md:flex-row md:items-baseline md:justify-between mb-4">
+                        <h3 class="text-xl font-bold text-slate-800 leading-tight">Enfants youtubeurs : le temps de l'argent</h3>
+                        <span class="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full mt-2 md:mt-0 whitespace-nowrap">Libération</span>
+                    </div>
+                    <div class="space-y-3 text-gray-600 text-sm md:text-base leading-relaxed">
+                        <p><strong class="text-slate-900">Problématique :</strong> L'article déconstruit le mythe du "jeu en famille". Il montre comment la maison familiale devient un studio de production où la spontanéité est souvent mise en scène pour satisfaire des partenariats commerciaux (unboxing de jouets, vlogs sponsorisés).<div class="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                            <strong class="text-slate-900 block mb-2">Argumentation :</strong>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>La pression psychologique :</strong> Le texte met en lumière la pression qui pèse sur les enfants pour "performer" devant la caméra, transformant la relation parent-enfant en relation manager-employé.</li>
+                                <li><strong>La précarité masquée :</strong> Avant la régulation, ces enfants travaillaient sans horaires, sans repos obligatoire et sans sécurité sociale dédiée.</li>
+                            </ul>
+                        </div>
+                        <p><strong class="text-slate-900">Conclusion de l'auteur :</strong> Libération conclut que la monétisation de l'enfance est une dérive du capitalisme numérique qui nécessite une surveillance constante de l'État pour éviter les abus (travail dissimulé).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Acteurs (Cartographie) -->
+        <section id="acteurs" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-8">
+                <i data-lucide="users" class="text-indigo-600" width="28"></i>
+                <h2 class="text-3xl font-serif font-bold text-slate-900">Cartographie des Acteurs</h2>
+            </div>
+            <p class="mb-6 text-gray-600 max-w-3xl">
+                Visualisation des interactions, des conflits et des flux d'influence entre les différents acteurs de la controverse.
+            </p>
+            
+            <div class="w-full bg-white p-0 rounded-xl shadow-lg border border-slate-100 overflow-x-auto flex justify-center">
+                <pre class="mermaid" style="width: 100%; margin: 0;">
+%%{init: {'theme': 'base', 'themeVariables': { 'fontFamily': 'Inter', 'primaryColor': '#fff', 'edgeLabelBackground':'#fff' }}}%%
+flowchart TB
+ subgraph LEGENDE["=== LÉGENDE ==="]
+    direction TB
+        L_VERT["Sphère Protection"]
+        L_ROUGE["Sphère Économique"]
+        L_BLEU["Sphère Privée"]
+        L_TXT["trait plein = Officiel/Contractuel<br>----- = Influence/Pression Psy<br> ⚡ = Zone de Conflit"]
+  end
+    ETAT["État / Législateur"] -- Vote --> LOI("Loi Studer 2020<br>& Agrément")
+    LOI -- Encadre --> CENTRE("PROBLÉMATIQUE :<br>Frontières Vie Privée / Travail<br>Exploitation vs Loisir")
+    LOI -- Impose consignation --> CAISSE["Caisse des Dépôts"]
+    LOI -- Garantit --> OUBLI("Droit à l'oubli<br>& Protection")
+    OUBLI -- Protège --> ENFANTS["Enfants Influenceurs"]
+    MARQUES["Marques / Annonceurs"] -- Financent --> MONEY("Revenus &<br>Monétisation")
+    PLATEFORMES["Plateformes<br>YouTube / TikTok"] -- Versent --> MONEY
+    PLATEFORMES -- Dictent --> ALGO("Algorithmes &<br>Visibilité")
+    MONEY -. Motivent .-> PARENTS["Parents Gestionnaires<br>Producteurs"]
+    ALGO -. Pression .-> PARENTS
+    PARENTS -. Créent zone grise .-> CENTRE
+    ASSOS["Associations<br>(OPEN, e-Enfance)"] -. Dénoncent .-> RISQUES("Risques Psy<br>& Surexposition")
+    EXPERTS["Experts<br>(Psy, Juristes)"] -. Alertent sur .-> RISQUES
+    CENTRE -. Génère .-> RISQUES
+    RISQUES -. Impactent .-> ENFANTS
+    ETAT == ⚡ CONFLIT: Régulation ==> PARENTS
+    ASSOS -. ⚡ CONFLIT: Éthique .-> PLATEFORMES
+    PARENTS -. ⚡ CONFLIT: Intérêt .-> ENFANTS
+    ENFANTS ~~~ LEGENDE
+
+     L_VERT:::protection
+     L_ROUGE:::economy
+     L_BLEU:::private
+     L_TXT:::legendNode
+     ETAT:::protection
+     LOI:::protection
+     CENTRE:::problem
+     CAISSE:::protection
+     OUBLI:::protection
+     ENFANTS:::private
+     MARQUES:::economy
+     MONEY:::economy
+     PLATEFORMES:::economy
+     ALGO:::economy
+     PARENTS:::private
+     ASSOS:::protection
+     RISQUES:::protection
+     EXPERTS:::protection
+    classDef protection fill:#4CAF50,stroke:#2E7D32,color:white,font-weight:bold
+    classDef economy fill:#F44336,stroke:#C62828,color:white,font-weight:bold
+    classDef private fill:#2196F3,stroke:#1565C0,color:white,font-weight:bold
+    classDef problem fill:#E91E63,stroke:#AD1457,color:white,font-weight:bold,font-size:14px
+    classDef legendNode fill:#FFF,stroke:#333,color:black,text-align:left
+                </pre>
+            </div>
+        </section>
+
+        <!-- Chronologie -->
+        <section id="chrono" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-12">
+                <i data-lucide="clock" class="text-indigo-600" width="28"></i>
+                <h2 class="text-3xl font-serif font-bold text-slate-900">Évolution dans le temps</h2>
+            </div>
+            <div class="relative border-l-4 border-indigo-200 ml-6 md:ml-12 space-y-12">
+
+                <!-- Phase 1 -->
+                <div class="mb-12">
+                    <h3 class="text-lg font-bold text-indigo-900 bg-indigo-50 p-2 rounded mb-6 -ml-4 md:-ml-8 border-l-4 border-indigo-500 shadow-sm inline-block">2007 - 2014 : Émergence et Innocence Apparente</h3>
+                    <p class="mb-6 text-gray-500 italic text-sm pl-8 md:pl-12">Le phénomène est sporadique. Il n'y a pas encore de modèle économique structuré, c'est l'ère de la vidéo virale accidentelle ou du hobby familial.</p>
+                    
+                    <div class="relative pl-8 md:pl-12 group mb-8">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-300 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">2007</span>
+                            <h4 class="text-lg font-bold text-slate-800">"Charlie Bit My Finger"</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">Vidéo virale sur YouTube, l'un des premiers exemples mondiaux d'enfants devenant stars malgré eux.</p>
+                    </div>
+
+                    <div class="relative pl-8 md:pl-12 group mb-8">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-300 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">2010</span>
+                            <h4 class="text-lg font-bold text-slate-800">Lancement d'Instagram</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">Au départ pour le partage entre amis, l'application pose les bases de la future exposition visuelle quotidienne.</p>
+                    </div>
+
+                    <div class="relative pl-8 md:pl-12 group">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-300 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">2011-2013</span>
+                            <h4 class="text-lg font-bold text-slate-800">Premières chaînes familiales</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">Émergence en France, inspirées des blogs de mamans. Contenu éducatif ou anecdotique, sans stratégie commerciale agressive.</p>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="mb-12">
+                     <h3 class="text-lg font-bold text-indigo-900 bg-indigo-50 p-2 rounded mb-6 -ml-4 md:-ml-8 border-l-4 border-indigo-500 shadow-sm inline-block">2015 - 2018 : Industrialisation et l'Âge d'Or</h3>
+                     <p class="mb-6 text-gray-500 italic text-sm pl-8 md:pl-12">Le système se complexifie. Les plateformes monétisent massivement. C'est ici que les enfants deviennent prescripteurs économiques.</p>
+
+                    <div class="relative pl-8 md:pl-12 group mb-8">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-400 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">2015</span>
+                            <h4 class="text-lg font-bold text-slate-800">Ascension de Ryan Kaji</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">Ryan’s World popularise l'unboxing : des enfants filmés en train de jouer pour vendre des produits.</p>
+                    </div>
+
+                    <div class="relative pl-8 md:pl-12 group mb-8">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-400 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">2016</span>
+                            <h4 class="text-lg font-bold text-slate-800">Lancement de TikTok</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">Transformation du format : plus court, plus addictif, exposant des enfants encore plus jeunes à des défis viraux.</p>
+                    </div>
+
+                    <div class="relative pl-8 md:pl-12 group">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-400 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">2016-2017</span>
+                            <h4 class="text-lg font-bold text-slate-800">Explosion des chaînes (Studio Bubble Tea, Swan The Voice)</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">Des productions quasi-télévisuelles avec des rythmes soutenus. Les critiques sur le "travail dissimulé" apparaissent, mais le public reste fasciné.</p>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="mb-12">
+                    <h3 class="text-lg font-bold text-indigo-900 bg-indigo-50 p-2 rounded mb-6 -ml-4 md:-ml-8 border-l-4 border-indigo-500 shadow-sm inline-block">2018 - 2019 : Prise de Conscience et "Crise"</h3>
+                    <p class="mb-6 text-gray-500 italic text-sm pl-8 md:pl-12">Le système en tension : Scandales éthiques et premières alertes.</p>
+
+                    <div class="relative pl-8 md:pl-12 group mb-8">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-500 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">2018</span>
+                            <h4 class="text-lg font-bold text-slate-800">Alerte de l'association OPEN</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">L'Observatoire de la Parentalité et de l'Éducation Numérique alerte les pouvoirs publics sur le vide juridique.</p>
+                    </div>
+
+                    <div class="relative pl-8 md:pl-12 group mb-8">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-500 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">Fév 2019</span>
+                            <h4 class="text-lg font-bold text-slate-800">"Youtube Purge" (Affaire Wormhole)</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">YouTube désactive les commentaires sur des millions de vidéos de mineurs suite à la découverte d'un réseau pédophile.</p>
+                    </div>
+
+                    <div class="relative pl-8 md:pl-12 group">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-500 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">Mai 2019</span>
+                            <h4 class="text-lg font-bold text-slate-800">Le choc Envoyé Spécial</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">Des reportages montrent les coulisses (fatigue, mise en scène). L'opinion bascule : ce n'est plus "mignon", c'est de l'exploitation.</p>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="mb-12">
+                    <h3 class="text-lg font-bold text-indigo-900 bg-indigo-50 p-2 rounded mb-6 -ml-4 md:-ml-8 border-l-4 border-indigo-500 shadow-sm inline-block">2020 - 2021 : Régulation et Adaptation</h3>
+                    <p class="mb-6 text-gray-500 italic text-sm pl-8 md:pl-12">La France devient pionnière, des législations sont mises en place pour la première fois dans le monde.</p>
+
+                    <div class="relative pl-8 md:pl-12 group">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-600 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">Oct 2020</span>
+                            <h4 class="text-lg font-bold text-slate-800">Adoption de la Loi Studer</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">Loi visant à encadrer l'exploitation commerciale de l'image d'enfants de moins de 16 ans sur les plateformes en ligne.</p>
+                    </div>
+                </div>
+
+                 <!-- Phase 5 -->
+                 <div>
+                    <h3 class="text-lg font-bold text-indigo-900 bg-indigo-50 p-2 rounded mb-6 -ml-4 md:-ml-8 border-l-4 border-indigo-500 shadow-sm inline-block">2021 - Aujourd'hui : Mutation "Sharenting" & IA</h3>
+                    <p class="mb-6 text-gray-500 italic text-sm pl-8 md:pl-12">Le système mute. On glisse de "l'enfant qui travaille" à "l'enfant dont la vie est documentée". Nouveaux dangers avec l'IA.</p>
+
+                    <div class="relative pl-8 md:pl-12 group mb-8">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-700 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">2021-2022</span>
+                            <h4 class="text-lg font-bold text-slate-800">Téléréalité 2.0</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">Les candidats de téléréalité (Les Marseillais, etc.) filment leur quotidien familial 24h/24. La frontière travail/vie privée devient floue.</p>
+                    </div>
+
+                    <div class="relative pl-8 md:pl-12 group mb-8">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-700 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">Juin 2023</span>
+                            <h4 class="text-lg font-bold text-slate-800">Loi influenceurs commerciaux</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">Renforce les obligations de signaler les contenus publicitaires, touchant indirectement les contenus familiaux.</p>
+                    </div>
+
+                    <div class="relative pl-8 md:pl-12 group">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 bg-white border-4 border-indigo-700 rounded-full"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                            <span class="text-xl font-bold text-indigo-600">2023-2024</span>
+                            <h4 class="text-lg font-bold text-slate-800">Angoisses IA / Deepfakes</h4>
+                        </div>
+                        <p class="text-gray-600 bg-white p-3 rounded-lg shadow-sm border border-gray-100">Le débat se déplace vers l'intégrité numérique et la protection contre la pédocriminalité générée par IA.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- International -->
+        <section id="etranger" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-8">
+                <i data-lucide="globe" class="text-indigo-600" width="28"></i>
+                <h2 class="text-3xl font-serif font-bold text-slate-900">Point de vue de l'étranger</h2>
+            </div>
+            
+            <!-- Introduction (Preserved) -->
+            <div class="mb-10 text-lg text-gray-700 leading-relaxed max-w-4xl border-l-4 border-indigo-200 pl-6 bg-white p-6 rounded-r-xl shadow-sm">
+                <p class="mb-4">
+                    La question des enfants influenceurs se pose aujourd’hui bien au-delà de la France et suscite des débats dans de nombreux pays. Avec la montée en puissance des réseaux sociaux et la diffusion massive de contenus familiaux, l’exposition des mineurs est devenue un enjeu international.
+                </p>
+                <p>
+                    Partout, les mêmes préoccupations émergent : protection de l’enfance, respect de la vie privée, consentement du mineur et encadrement de la monétisation. Face à ces risques, les pays adoptent des réponses différentes, allant de lois spécifiques à des cadres juridiques plus généraux, ce qui permet de mettre en perspective la situation française et d’enrichir l’analyse de la controverse.
+                </p>
+            </div>
+
+            <!-- Grille des Pays -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- États-Unis -->
+                <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100 flex flex-col h-full hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-blue-900 mb-2 flex items-center gap-2">
+                        🇺🇸 États-Unis
+                    </h3>
+                    <p class="text-sm text-blue-800 mb-4">Berceau des plateformes numériques, les États-Unis présentent un paysage législatif fragmenté en l'absence de loi fédérale globale :</p>
+                    <ul class="space-y-4 mb-6 flex-grow">
+                        <li class="text-sm text-blue-900">
+                            <strong class="font-bold text-base block mb-1">Disparités entre États</strong>
+                            Si la Californie protège depuis longtemps les enfants acteurs via la "Coogan Law", d'autres États agissent en ordre dispersé.
+                        </li>
+                        <li class="text-sm text-blue-900">
+                            <strong class="font-bold text-base block mb-1">Nouvelles législations (2023)</strong>
+                            L'Illinois a marqué un tournant en garantissant aux enfants une part des revenus générés par les vlogs familiaux. De son côté, l'Utah a imposé des restrictions d'accès drastiques (couvre-feu numérique, consentement parental).
+                        </li>
+                        <li class="text-sm text-blue-900">
+                            <strong class="font-bold text-base block mb-1">Tension culturelle</strong>
+                            Cette fragmentation reflète le tiraillement américain entre la liberté d'entreprendre (le mythe du "self-made") et l'urgence de réguler une industrie devenue incontrôlable.
+                        </li>
+                    </ul>
+                    <p class="text-xs text-blue-700 italic border-t border-blue-200 pt-3 mt-auto">
+                        Source : Associated Press, The New York Times
+                    </p>
+                </div>
+
+                <!-- Royaume-Uni -->
+                <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100 flex flex-col h-full hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-indigo-900 mb-2 flex items-center gap-2">
+                        🇬🇧 Royaume-Uni
+                    </h3>
+                     <p class="text-sm text-indigo-800 mb-4">Le Royaume-Uni privilégie une approche centrée sur la sécurité globale des plateformes plutôt qu'un statut spécifique pour l'enfant influenceur :</p>
+                    <ul class="space-y-4 mb-6 flex-grow">
+                        <li class="text-sm text-indigo-900">
+                            <strong class="font-bold text-base block mb-1">Cadre général (Online Safety Act 2023)</strong>
+                            Ce texte impose aux géants comme YouTube ou TikTok une "obligation de diligence" pour protéger les mineurs des contenus nocifs, sous peine de lourdes sanctions.
+                        </li>
+                        <li class="text-sm text-indigo-900">
+                            <strong class="font-bold text-base block mb-1">Alerte parlementaire</strong>
+                            Une commission a récemment souligné le vide juridique concernant le temps de travail. Elle réclame que les heures de tournage à domicile soient comptabilisées pour prévenir l'exploitation et le décrochage scolaire.
+                        </li>
+                    </ul>
+                    <p class="text-xs text-indigo-700 italic border-t border-indigo-200 pt-3 mt-auto">
+                        Source : The Guardian, BBC
+                    </p>
+                </div>
+
+                <!-- Allemagne -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col h-full hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                        🇩🇪 Allemagne
+                    </h3>
+                    <p class="text-sm text-slate-700 mb-4">L'Allemagne se distingue par une rigueur juridique fondée sur la protection de la vie privée (Privatsphäre) :</p>
+                    <ul class="space-y-4 mb-6 flex-grow">
+                        <li class="text-sm text-slate-800">
+                            <strong class="font-bold text-base block mb-1">Droit à l'image strict</strong>
+                            Les tribunaux considèrent que le consentement d'un mineur ne peut être présumé pour une diffusion publique massive, permettant de sanctionner les parents qui violent ce droit.
+                        </li>
+                        <li class="text-sm text-slate-800">
+                            <strong class="font-bold text-base block mb-1">Auto-régulation parentale</strong>
+                            Ce cadre dissuasif, soutenu par des campagnes de sensibilisation, pousse de nombreux parents à flouter le visage de leurs enfants ou à restreindre leur exposition.
+                        </li>
+                    </ul>
+                    <p class="text-xs text-slate-600 italic border-t border-slate-200 pt-3 mt-auto">
+                        Source : Deutsche Welle, Der Spiegel
+                    </p>
+                </div>
+
+                <!-- Corée du Sud -->
+                <div class="bg-sky-50 p-6 rounded-2xl border border-sky-100 flex flex-col h-full hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-sky-900 mb-2 flex items-center gap-2">
+                        🇰🇷 Corée du Sud
+                    </h3>
+                    <p class="text-sm text-sky-800 mb-4">Dans un pays où le numérique est omniprésent, la régulation se focalise sur les impacts psychologiques :</p>
+                    <ul class="space-y-4 mb-6 flex-grow">
+                        <li class="text-sm text-sky-900">
+                            <strong class="font-bold text-base block mb-1">Lutte contre le "cyber-surmenage"</strong>
+                            Le gouvernement s'inspire des lois "Cendrillon" (qui limitaient les jeux vidéo la nuit) pour tenter de contrôler l'utilisation des réseaux par les mineurs.
+                        </li>
+                        <li class="text-sm text-sky-900">
+                            <strong class="font-bold text-base block mb-1">Santé mentale</strong>
+                            Le débat public est vivement alimenté par les pédopsychiatres, qui s'alarment de voir des enfants poussés par leurs parents à devenir des stars du web pour réussir socialement.
+                        </li>
+                    </ul>
+                    <p class="text-xs text-sky-700 italic border-t border-sky-200 pt-3 mt-auto">
+                        Source : Reuters, The Korea Herald
+                    </p>
+                </div>
+
+                <!-- Chine -->
+                <div class="bg-red-50 p-6 rounded-2xl border border-red-100 flex flex-col h-full hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-red-900 mb-2 flex items-center gap-2">
+                        🇨🇳 Chine
+                    </h3>
+                    <p class="text-sm text-red-800 mb-4">La Chine a adopté l'approche la plus radicale et dirigiste au monde pour "nettoyer" le cyberespace :</p>
+                    <ul class="space-y-4 mb-6 flex-grow">
+                        <li class="text-sm text-red-900">
+                            <strong class="font-bold text-base block mb-1">Interdiction stricte (2021)</strong>
+                            Les mineurs de moins de 16 ans ont l'interdiction de réaliser des livestreams (diffusions en direct).
+                        </li>
+                        <li class="text-sm text-red-900">
+                            <strong class="font-bold text-base block mb-1">Objectifs moraux</strong>
+                            En coupant la possibilité de gains financiers directs (dons virtuels), l'État vise à lutter contre l'addiction aux écrans et à privilégier l'ordre social sur la liberté économique numérique.
+                        </li>
+                    </ul>
+                    <p class="text-xs text-red-700 italic border-t border-red-200 pt-3 mt-auto">
+                        Source : South China Morning Post, Reuters
+                    </p>
+                </div>
+
+                <!-- Pays-Bas -->
+                <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100 flex flex-col h-full hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-orange-900 mb-2 flex items-center gap-2">
+                        🇳🇱 Pays-Bas
+                    </h3>
+                    <p class="text-sm text-orange-800 mb-4">Les Pays-Bas traitent le phénomène sous l'angle administratif du droit du travail existant :</p>
+                    <ul class="space-y-4 mb-6 flex-grow">
+                        <li class="text-sm text-orange-900">
+                            <strong class="font-bold text-base block mb-1">Assimilation au travail des enfants</strong>
+                            L'Inspection du travail considère le vlogging régulier et rémunérateur comme une activité professionnelle nécessitant une autorisation préalable.
+                        </li>
+                        <li class="text-sm text-orange-900">
+                            <strong class="font-bold text-base block mb-1">Répression active</strong>
+                            Contrairement à d'autres pays hésitants, les autorités néerlandaises sanctionnent (avertissements, amendes) les parents de jeunes YouTubeurs qui ne respectent pas la législation sur le travail des mineurs.
+                        </li>
+                    </ul>
+                    <p class="text-xs text-orange-700 italic border-t border-orange-200 pt-3 mt-auto">
+                        Source : Dutch News, NOS
+                    </p>
+                </div>
+
+                <!-- Brésil -->
+                <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-100 flex flex-col h-full hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-emerald-900 mb-2 flex items-center gap-2">
+                        🇧🇷 Brésil
+                    </h3>
+                    <p class="text-sm text-emerald-800 mb-4">Le Brésil, immense marché pour les réseaux sociaux, fait face à un vide législatif en cours de comblement :</p>
+                    <ul class="space-y-4 mb-6 flex-grow">
+                        <li class="text-sm text-emerald-900">
+                            <strong class="font-bold text-base block mb-1">Recommandations judiciaires</strong>
+                            Le Ministère Public du Travail préconise d'appliquer aux influenceurs mineurs les mêmes règles strictes (autorisation judiciaire) que pour les enfants acteurs de telenovelas.
+                        </li>
+                        <li class="text-sm text-emerald-900">
+                            <strong class="font-bold text-base block mb-1">Enjeu socio-économique</strong>
+                            Des projets de loi sont en discussion pour formaliser cette protection, dans un contexte où les réseaux sociaux sont souvent perçus par les familles précaires comme un eldorado financier rapide.
+                        </li>
+                    </ul>
+                    <p class="text-xs text-emerald-700 italic border-t border-emerald-200 pt-3 mt-auto">
+                        Source : Agência Brasil, BBC News Brasil
+                    </p>
+                </div>
+
+                <!-- Inde -->
+                <div class="bg-fuchsia-50 p-6 rounded-2xl border border-fuchsia-100 flex flex-col h-full hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-fuchsia-900 mb-2 flex items-center gap-2">
+                        🇮🇳 Inde
+                    </h3>
+                    <p class="text-sm text-fuchsia-800 mb-4">L'Inde a mis en place une régulation bureaucratique via la Commission nationale pour la protection des droits de l'enfant (NCPCR) :</p>
+                    <ul class="space-y-4 mb-6 flex-grow">
+                        <li class="text-sm text-fuchsia-900">
+                            <strong class="font-bold text-base block mb-1">Statut d'"enfant artiste"</strong>
+                            Les nouvelles directives obligent les parents à enregistrer l'activité de l'enfant auprès du magistrat du district avant toute diffusion.
+                        </li>
+                        <li class="text-sm text-fuchsia-900">
+                            <strong class="font-bold text-base block mb-1">Protection financière et scolaire</strong>
+                            La réglementation limite les heures de tournage pour préserver la scolarité et impose que 20 % des revenus soient bloqués sur un compte bancaire fixe jusqu'à la majorité de l'enfant.
+                        </li>
+                    </ul>
+                    <p class="text-xs text-fuchsia-700 italic border-t border-fuchsia-200 pt-3 mt-auto">
+                        Source : The Times of India, The Hindu
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Enquête (Section mise à jour avec Statistiques et Verbatims) -->
+        <section id="enquete" class="scroll-mt-24 mb-24">
+            <div class="flex items-center gap-3 mb-8">
+                <i data-lucide="search" class="text-indigo-600" width="28"></i>
+                <h2 class="text-3xl font-serif font-bold text-slate-900">Travail d'enquête</h2>
+            </div>
+            <div class="bg-white p-8 rounded-3xl shadow-lg border border-gray-100">
+                <p class="mb-10 text-xl text-gray-700 font-light border-l-4 border-indigo-500 pl-4 bg-indigo-50/50 py-4 pr-4 rounded-r-lg">
+                    Afin de cerner l'opinion publique, nous avons mené une enquête auprès de plus de 200 parents, enfants et créateurs de contenu.
+                </p>
+                
+                <!-- Grille Statistiques -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                    
+                    <!-- Avis Global (Agrandi pour contenir la question) -->
+                    <div class="bg-red-50 p-6 rounded-2xl border border-red-100 flex flex-col justify-center md:col-span-2 lg:col-span-2">
+                        <div class="flex flex-col md:flex-row items-center gap-6">
+                            <div class="text-center md:text-left flex-1">
+                                <h3 class="text-gray-600 font-medium mb-2 uppercase text-xs tracking-wider">Avis Global</h3>
+                                <p class="text-sm font-medium text-red-900 italic mb-4">
+                                    "Que pensez-vous de la présence des enfants sur les réseaux sociaux à des fins de monétisation ?"
+                                </p>
+                                <p class="text-sm text-red-800 leading-snug">
+                                    <span class="font-bold">56%</span> "Très défavorable" • 
+                                    <span class="font-bold">44%</span> "Plutôt défavorable"<br>
+                                    <span class="italic text-xs opacity-75 mt-1 block">Aucune opinion positive sur l'échantillon.</span>
+                                </p>
+                            </div>
+                            <div class="text-center px-6 py-4 bg-white/50 rounded-xl border border-red-100">
+                                <div class="text-5xl font-bold text-red-600 mb-1">100%</div>
+                                <div class="text-xs text-red-800 font-bold uppercase tracking-wide">Négatif</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fréquence de visionnage (Nouveau) -->
+                    <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100 flex flex-col justify-center">
+                        <h3 class="text-gray-600 font-medium mb-2 uppercase text-xs tracking-wider">Fréquence de visionnage</h3>
+                        <p class="text-xs text-blue-900 italic mb-4 leading-tight">"Avez-vous déjà regardé des contenus mettant en scène des enfants influenceurs ?"</p>
+                        <div class="space-y-3 w-full">
+                            <!-- Rarement -->
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                                    <span>Rarement</span><span>50%</span>
+                                </div>
+                                <div class="w-full bg-blue-200/50 rounded-full h-2">
+                                    <div class="bg-orange-500 h-2 rounded-full" style="width: 50%"></div>
+                                </div>
+                            </div>
+                            <!-- Parfois -->
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                                    <span>Parfois</span><span>20.5%</span>
+                                </div>
+                                <div class="w-full bg-blue-200/50 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 20.5%"></div>
+                                </div>
+                            </div>
+                            <!-- Jamais -->
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                                    <span>Jamais</span><span>15.9%</span>
+                                </div>
+                                <div class="w-full bg-blue-200/50 rounded-full h-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 15.9%"></div>
+                                </div>
+                            </div>
+                            <!-- Souvent -->
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                                    <span>Souvent</span><span>13.6%</span>
+                                </div>
+                                <div class="w-full bg-blue-200/50 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: 13.6%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Refus -->
+                    <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100 text-center flex flex-col justify-center">
+                        <h3 class="text-gray-600 font-medium mb-2 uppercase text-xs tracking-wider">Refus de participation</h3>
+                        <div class="text-4xl font-bold text-indigo-600 mb-2">87%</div>
+                        <p class="text-sm text-indigo-800 leading-snug">
+                            Refusent catégoriquement que leur enfant participe à des contenus monétisés (0% de "Oui").
+                        </p>
+                    </div>
+
+                    <!-- Plateformes -->
+                    <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100 text-center flex flex-col justify-center">
+                        <h3 class="text-gray-600 font-medium mb-2 uppercase text-xs tracking-wider">Responsabilité Plateformes</h3>
+                        <div class="text-4xl font-bold text-orange-600 mb-2">92%</div>
+                        <p class="text-sm text-orange-800 leading-snug">
+                            Estiment que les réseaux (TikTok, YouTube) n'encadrent pas ou pas assez cette activité.
+                        </p>
+                    </div>
+                    
+                    <!-- Consentement -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center flex flex-col justify-center">
+                        <h3 class="text-gray-600 font-medium mb-2 uppercase text-xs tracking-wider">Consentement Bafoué</h3>
+                        <div class="text-4xl font-bold text-slate-600 mb-2">~90%</div>
+                        <p class="text-sm text-slate-700 leading-snug">
+                            Pensent que les parents ne respectent pas (ou seulement "parfois") le consentement de l'enfant.
+                        </p>
+                    </div>
+
+                    <!-- Risques (Pleine largeur) -->
+                    <div class="bg-white p-8 rounded-2xl border-2 border-slate-100 shadow-sm md:col-span-2 lg:col-span-3 flex flex-col justify-center">
+                        <!-- Title Block -->
+                        <div class="mb-6">
+                            <h3 class="text-slate-800 font-bold text-xl mb-2">Les risques à l'exposition des enfants sur internet</h3>
+                            <p class="text-sm text-gray-500 italic">Le mot "Harcèlement" apparaît dans 50% des réponses spontanées concernant les dangers perçus.</p>
+                        </div>
+                        
+                        <!-- Grid Block -->
+                        <div class="w-full">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <!-- Item 1 -->
+                                <div class="flex items-center gap-3 bg-red-50 p-4 rounded-xl border border-red-100">
+                                    <div class="bg-red-600 text-white w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-md font-bold text-base shadow-sm">1</div>
+                                    <span class="font-bold text-slate-800 text-lg">Harcèlement</span>
+                                </div>
+                                <!-- Item 2 -->
+                                <div class="flex items-center gap-3 bg-orange-50 p-4 rounded-xl border border-orange-100">
+                                    <div class="bg-orange-500 text-white w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-md font-bold text-base shadow-sm">2</div>
+                                    <span class="font-bold text-slate-800 text-lg">Pédocriminalité</span>
+                                </div>
+                                <!-- Item 3 -->
+                                <div class="flex items-center gap-3 bg-indigo-50 p-4 rounded-xl border border-indigo-100">
+                                    <div class="bg-indigo-500 text-white w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-md font-bold text-base shadow-sm">3</div>
+                                    <span class="font-bold text-slate-800 text-lg">Exploitation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verbatim -->
+                <div class="mt-12">
+                     <h4 class="font-bold text-xl mb-6 flex items-center gap-2 text-slate-800">
+                        <i data-lucide="quote" class="text-indigo-500" width="24"></i>
+                        Les Citations Fortes
+                    </h4>
+                    <div class="grid md:grid-cols-3 gap-6">
+                         <!-- Quote 1 -->
+                         <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-indigo-400 relative hover:bg-gray-100 transition-colors">
+                             <div class="absolute top-4 right-4 text-indigo-100" >
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9C9.55228 16 10 15.5523 10 15V9C10 8.44772 9.55228 8 9 8H5C4.44772 8 4 8.44772 4 9V18C4 19.6569 5.34315 21 7 21H14.017ZM21.017 21L21.017 18C21.017 16.8954 20.1216 16 19.017 16H16C16.5523 16 17 15.5523 17 15V9C17 8.44772 16.5523 8 16 8H12C11.4477 8 11 8.44772 11 9V18C11 19.6569 12.3431 21 14 21H21.017Z" /></svg>
+                             </div>
+                             <p class="italic text-gray-700 mb-4 relative z-10 leading-relaxed">"C'est juste des parents qui veulent se faire de l'argent sur le dos de leurs enfants. À qui profite le crime ? Aux parents ou à un entourage vénal ?"</p>
+                             <div class="mt-auto">
+                                <span class="text-xs font-bold text-indigo-600 uppercase tracking-wide bg-indigo-50 px-2 py-1 rounded">Sur l'exploitation</span>
+                             </div>
+                         </div>
+                         
+                         <!-- Quote 2 -->
+                         <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-indigo-400 relative hover:bg-gray-100 transition-colors">
+                            <div class="absolute top-4 right-4 text-indigo-100" >
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9C9.55228 16 10 15.5523 10 15V9C10 8.44772 9.55228 8 9 8H5C4.44772 8 4 8.44772 4 9V18C4 19.6569 5.34315 21 7 21H14.017ZM21.017 21L21.017 18C21.017 16.8954 20.1216 16 19.017 16H16C16.5523 16 17 15.5523 17 15V9C17 8.44772 16.5523 8 16 8H12C11.4477 8 11 8.44772 11 9V18C11 19.6569 12.3431 21 14 21H21.017Z" /></svg>
+                             </div>
+                             <p class="italic text-gray-700 mb-4 relative z-10 leading-relaxed">"Regretter à l’âge adulte d’y avoir été 'forcé'. C'est entrer trop tôt dans une vie d'adulte avec une image qui va les suivre sans qu'ils ne le veuillent."</p>
+                             <div class="mt-auto">
+                                <span class="text-xs font-bold text-indigo-600 uppercase tracking-wide bg-indigo-50 px-2 py-1 rounded">Sur la psychologie</span>
+                             </div>
+                         </div>
+        
+                         <!-- Quote 3 -->
+                         <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-indigo-400 relative hover:bg-gray-100 transition-colors">
+                            <div class="absolute top-4 right-4 text-indigo-100" >
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9C9.55228 16 10 15.5523 10 15V9C10 8.44772 9.55228 8 9 8H5C4.44772 8 4 8.44772 4 9V18C4 19.6569 5.34315 21 7 21H14.017ZM21.017 21L21.017 18C21.017 16.8954 20.1216 16 19.017 16H16C16.5523 16 17 15.5523 17 15V9C17 8.44772 16.5523 8 16 8H12C11.4477 8 11 8.44772 11 9V18C11 19.6569 12.3431 21 14 21H21.017Z" /></svg>
+                             </div>
+                             <p class="italic text-gray-700 mb-4 relative z-10 leading-relaxed">"J'ai peur que des gens mal intentionnés repèrent où ils habitent. Il y a trop de dérives des images à des fins pédopornographiques."</p>
+                             <div class="mt-auto">
+                                <span class="text-xs font-bold text-indigo-600 uppercase tracking-wide bg-indigo-50 px-2 py-1 rounded">Sur la sécurité</span>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 text-center">
+        <div class="container mx-auto px-4">
+            <p class="mb-2 font-serif text-lg text-slate-200">Projet Universitaire - Sociologie des Controverses</p>
+            <p class="text-sm mb-8">Travail réalisé par groupe d'étudiants • Année 2025-2026</p>
+            
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-left mb-8">
+                <!-- Sarah Bardi Sam Giao -->
+                <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                    <h4 class="text-slate-200 font-bold text-sm">Sarah Bardi Sam Giao</h4>
+                    <p class="text-xs text-indigo-400">Responsable création du site internet</p>
+                </div>
+                 <!-- Rose Gökçe -->
+                 <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                    <h4 class="text-slate-200 font-bold text-sm">Rose Gökçe</h4>
+                    <p class="text-xs text-indigo-400">Responsable de la carte des acteurs / controverse</p>
+                </div>
+                 <!-- Coline Fallou -->
+                 <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                    <h4 class="text-slate-200 font-bold text-sm">Coline Fallou</h4>
+                    <p class="text-xs text-indigo-400">Responsable interviews / témoignages</p>
+                </div>
+                 <!-- Hadrien Paziaud -->
+                 <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                    <h4 class="text-slate-200 font-bold text-sm">Hadrien Paziaud</h4>
+                    <p class="text-xs text-indigo-400">Responsable recherche documentaire</p>
+                </div>
+                 <!-- Stanislas Naux -->
+                 <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                    <h4 class="text-slate-200 font-bold text-sm">Stanislas Naux</h4>
+                    <p class="text-xs text-indigo-400">Responsable analyse juridique</p>
+                </div>
+                 <!-- Youssef Snoussi -->
+                 <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                    <h4 class="text-slate-200 font-bold text-sm">Youssef Snoussi</h4>
+                    <p class="text-xs text-indigo-400">Responsable analyse des risques</p>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-slate-800 text-xs text-slate-500">
+                Site HTML/CSS pur - Version optimisée
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialisation des icônes Lucide
+        lucide.createIcons();
+
+        // Fonction pour afficher/masquer le contenu du problème
+        function toggleProblem() {
+            const content = document.getElementById('problem-full-content');
+            const icon = document.getElementById('problem-icon');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Fonction pour afficher/masquer les articles de presse
+        function toggleArticle(articleId) {
+            const content = document.getElementById(articleId + '-content');
+            const icon = document.getElementById(articleId + '-icon');
+            const btnText = document.getElementById(articleId + '-btn-text');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+                btnText.textContent = 'Réduire';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+                btnText.textContent = 'Lire l\'analyse';
+            }
+        }
+
+        // Fonction de défilement JavaScript (remplace href="#id")
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                // Décalage pour la navbar fixe (64px + un peu d'espace)
+                const offset = 80;
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = element.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+
+        // Utilisation d'Intersection Observer pour mettre en surbrillance le bouton actif
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navBtns = document.querySelectorAll('.nav-btn');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-30% 0px -60% 0px', 
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        
+                        // Reset all buttons
+                        navBtns.forEach(btn => {
+                            btn.classList.remove('nav-active');
+                            btn.classList.add('text-gray-600', 'hover:text-indigo-600');
+                        });
+
+                        // Active current button
+                        const activeBtn = document.getElementById(`btn-${id}`);
+                        if (activeBtn) {
+                            activeBtn.classList.add('nav-active');
+                            activeBtn.classList.remove('text-gray-600', 'hover:text-indigo-600');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
